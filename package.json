@@ -1,0 +1,12 @@
+{
+  "name": "email-safe-gaurd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "main": "node src/index.js"
+  },
+  "author": "sumitjangir179",
+  "license": "ISC"
+}

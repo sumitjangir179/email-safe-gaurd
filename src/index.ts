@@ -3,13 +3,24 @@ import { DISPOSABLE_DOMAINS } from "./domains.js";
 
 const dnsResolver = new Resolver();
 
+export type VerificationReason =
+  | "INVALID_INPUT"
+  | "INVALID_SYNTAX"
+  | "DISPOSABLE_DOMAIN"
+  | "NO_MX_RECORDS";
+
+export interface VerificationResult {
+  isValid: boolean;
+  reason?: VerificationReason;
+}
+
 export class EmailVerifier {
   /**
    * Validates syntax using a standard RFC-compliant regex.
    * @param {string} email
    * @returns {boolean}
    */
-  static isSyntaxValid(email) {
+  static isSyntaxValid(email: string): boolean {
     const regex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     return regex.test(email);
@@ -20,7 +31,7 @@ export class EmailVerifier {
    * @param {string} domain
    * @returns {boolean}
    */
-  static isDisposable(domain) {
+  static isDisposable(domain: string): boolean {
     return DISPOSABLE_DOMAINS.has(domain.toLowerCase());
   }
 
@@ -29,7 +40,7 @@ export class EmailVerifier {
    * @param {string} domain
    * @returns {Promise<boolean>}
    */
-  static async hasMxRecords(domain) {
+  static async hasMxRecords(domain: string): Promise<boolean> {
     try {
       const addresses = await dnsResolver.resolveMx(domain);
       return addresses && addresses.length > 0;
@@ -43,7 +54,7 @@ export class EmailVerifier {
    * @param {string} email
    * @returns {Promise<{isValid: boolean, reason?: string}>}
    */
-  static async verify(email) {
+  static async verify(email: string): Promise<VerificationResult> {
     if (!email || typeof email !== "string") {
       return { isValid: false, reason: "INVALID_INPUT" };
     }

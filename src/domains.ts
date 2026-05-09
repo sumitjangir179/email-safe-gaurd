@@ -1,4 +1,4 @@
-export const DISPOSABLE_DOMAINS = new Set([
+export const DISPOSABLE_DOMAINS: Set<string> = new Set([
   "mailinator.com",
   "10minutemail.com",
   "tempmail.net",

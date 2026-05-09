@@ -2,11 +2,22 @@
   "name": "email-safe-gaurd",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
-    "main": "node src/index.js"
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "dev": "tsc -w",
+    "test": "npm run build && node dist/test.js"
   },
+  "keywords": [],
   "author": "sumitjangir179",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  }
 }

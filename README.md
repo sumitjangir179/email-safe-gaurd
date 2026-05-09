@@ -65,9 +65,3 @@ async function checkEmail(email) {
 checkEmail("valid.user@gmail.com");
 checkEmail("trash@mailinator.com");
 checkEmail("user@non-existent-domain.com");
-```
-
-    *   This will automatically recompile the project whenever you make changes to the source files.
-    ```bash
-    npm run dev
-    ```
